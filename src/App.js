@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Header from './Header.js'
 import request from 'superagent';
+
 const data = [{
   _id: "5cef3501ef6005a77cd4fdd0",
   pokemon: "pichu",
@@ -20,14 +21,18 @@ export default class App extends Component {
     const value = event.target.value;
     this.setState({ searchQuery: value });
   }
-  
+  gi
   render() {
     console.log('|| data', data)
     return (
       <div>
         <Header />
         <input onChange={this.handleChange} />
-
+        {
+          this.state.data.map(whatever => {
+            return <h1>something</h1>
+          })
+        }
       </div>
     )
   }
