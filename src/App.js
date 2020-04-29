@@ -30,7 +30,7 @@ export default class App extends Component {
         <input onChange={this.handleChange} />
         {
           this.state.data.map(whatever => {
-            return <h1>something</h1>
+            return <h1>{whatever.pokemon}</h1>
           })
         }
       </div>
