@@ -5,6 +5,10 @@ import Header from './Header.js'
 
 
 export default class App extends Component {
+  handleChange = () => {
+    console.log('good day')
+  }
+  
   render() {
     return (
       <div>
