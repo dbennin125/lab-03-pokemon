@@ -5,8 +5,10 @@ import Header from './Header.js'
 
 
 export default class App extends Component {
-  handleChange = () => {
-    console.log('good day')
+  handleChange = (event) => {
+    //get value of the input;
+    const value = event.target.value;
+    console.log('good', value);
   }
   
   render() {
