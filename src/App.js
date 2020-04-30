@@ -3,6 +3,7 @@ import Header from './Header.js';
 import request from 'superagent';
 import PokeList from './PokeList.js';
 import "./App.css";
+import SearchSection from './SeachSection.js'
 
 export default class App extends Component {
   //setting the state to initalize on load
@@ -46,21 +47,12 @@ export default class App extends Component {
       <div className="main">
         <Header className="header1" />
         
-        <select onChange={this.handleType}>
-          <option value=""></option>
-          <option value="pokemon">Sort by name</option>
-          <option value="type">Type of Pokemon</option>
-        </select>
-        
-        <input onChange={this.handleChange} />
-        {this.state.typeQuery}
-        <button onClick={this.handleClick}>Search Name!</button>
+        <SearchSection MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick}/>
+
+          {this.state.typeQuery}
+
         <PokeList pokemons={this.state.data}/>
-        {/* {
-          this.state.data.map(whatever => {
-            return <h1>{whatever.pokemon}</h1>
-          })
-        } */}
+
       </div>
     )
   }
