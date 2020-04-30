@@ -7,7 +7,16 @@ export default class PokeList extends Component {
             <div className ="renderItem">
                {
                    this.props.pokemons.map(pokemon => {
-                        return <h3>name: {pokemon.pokemon} type: {pokemon.type_1} {pokemon.type_2} <img src={pokemon.url_image} alt="whatever" /></h3>
+                        return <div>
+                            <h3>
+                            name: {pokemon.pokemon}
+                            </h3>
+                            <p>
+                            type: {pokemon.type_1} {pokemon.type_2} 
+                            <img src={pokemon.url_image} alt="whatever" />
+                            </p>
+                        </div>
+
                        
                     })
 
