@@ -9,10 +9,11 @@ export default class SeachSection extends Component {
               <option value=""></option>
               <option value="pokemon">Sort by Name</option>
               <option value="type">Type of Pokemon</option>
+              <option value="type">Hidden Ability of Pokemon</option>
             </select>
             <p>Pokemon Name:</p>
           <input onChange={this.props.MYNEWHandleChange} />
-          {/* {this.props.MYNEWState.typeQuery} */}
+         
           <button onClick={this.props.MYNEWHandleClick}>Search Name!</button>
         </section>
             </div>

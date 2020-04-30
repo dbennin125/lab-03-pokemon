@@ -12,26 +12,18 @@ export default class PokeList extends Component {
                             name: {pokemon.pokemon}
                             </h3>
                             <p>
-                            type: {pokemon.type_1} {pokemon.type_2} 
-                            <img src={pokemon.url_image} alt="whatever" />
+                            type: {pokemon.type_1}, {pokemon.type_2}</p> 
+                           <p> Hidden Ability: {pokemon.ability_hidden}
                             </p>
+                            <img src={pokemon.url_image} alt="whatever" />
                         </div>
 
                        
                     })
 
-                // }
-                //            {
-                //    this.props.pokemons.map(pokemon => {
-                //         return <img src={pokemon.url_image} alt="whatever" />
-                      
-                //     })
                 }
             </div>
 
-            
-
-        
         </li>
     }
 }
