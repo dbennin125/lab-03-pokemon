@@ -8,6 +8,7 @@ export default class App extends Component {
   state = {
     searchQuery: '',
     data: [],
+    typeQuery: ''
   }
   
   handleChange = (event) => {
@@ -15,6 +16,13 @@ export default class App extends Component {
     const value = event.target.value;
     this.setState({ searchQuery: value });
   }
+
+  handleType = (event) => {
+    const value = event.target.value;
+    this.setState({ typeQuery: value });
+  
+  }
+
   
   handleClick = async () => {
     // console.log('hello', this.state.searchQuery)
@@ -26,13 +34,13 @@ export default class App extends Component {
   }
 
   render() {
-  
+    console.log(this.handleType, 'hello')
     return (
       <div>
         <Header />
         <input onChange={this.handleChange} />
         <button onClick={this.handleClick}>Search Name of Water Type Pokemon!</button>
-        
+        {/* <PokeList /> */}
         {
           this.state.data.map(whatever => {
             return <h1>{whatever.pokemon}</h1>
