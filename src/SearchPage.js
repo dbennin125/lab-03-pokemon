@@ -3,7 +3,7 @@ import Header from './Header.js';
 import request from 'superagent';
 import PokeList from './PokeList.js';
 import "./App.css";
-import SearchSection from './SeachSection.js'
+import SearchBar from './SeachBar.js'
 
 export default class App extends Component {
   //setting the state to initalize on load
@@ -46,7 +46,7 @@ export default class App extends Component {
       <div className="main">
         <Header className="header1" />
         
-        <SearchSection MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick}/>
+        <SearchBar MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick}/>
 
           {/* {this.state.hiddenAbilityQuery} */}
           {this.state.typeQuery}
