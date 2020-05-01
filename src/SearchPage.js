@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import Header from './Header.js';
+
 import request from 'superagent';
 import PokeList from './PokeList.js';
 import "./App.css";
-import SearchBar from './SeachBar.js'
+import SearchBar from './SeachBar.js';
+
 
 export default class App extends Component {
   //setting the state to initalize on load
@@ -25,16 +26,16 @@ export default class App extends Component {
     this.setState({ typeQuery: value });
   
   }
-  // handleAbility = (event) => {
-  //   const value = event.target.value;
-  //   this.setState({ hiddenAbilityQuery: value });
+  handleAbility = (event) => {
+    const value = event.target.value;
+    this.setState({ hiddenAbilityQuery: value });
   
-  // }
+  }
 
   
   handleClick = async () => {
     // console.log('hello', this.state.searchQuery)
-      const fetchedData = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}&sort=${this.state.typeQuery}&sort=${this.state.hiddenAbilityQuery}`)
+      const fetchedData = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}&sort=${this.state.typeQuery}`)
      
       // console.log(fetchedData.body);
       this.setState({data: fetchedData.body.results});
@@ -44,12 +45,12 @@ export default class App extends Component {
     
     return (
       <div className="main">
-        <Header className="header1" />
+        
         
         <SearchBar MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick}/>
 
           {/* {this.state.hiddenAbilityQuery} */}
-          {this.state.typeQuery}
+
 
         <PokeList pokemons={this.state.data}/>
 

@@ -9,12 +9,15 @@ import {
 import DetailPage from './DetailsPage.js';
 import SearchPage from './SearchPage.js';
 import './App.css';
+import Header from './Header.js';
+import Footer from './Footer.js';
 
 
 export default class App extends Component {
     render() {
         return (
             <div>
+                <Header />
                 <Router>
                     <Switch>
                         <Route 
@@ -29,7 +32,8 @@ export default class App extends Component {
                         />
                     </Switch>
                 </Router>
-            </div>
+                <Footer />
+        </div>
         )
     }
 }
