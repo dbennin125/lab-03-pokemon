@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import request from 'superagent'
 // import PokeList from './PokeList.js'
+import './App.css';
 
 
 export default class DetailsPage extends Component {
@@ -10,8 +11,9 @@ export default class DetailsPage extends Component {
     async componentDidMount () {
         //waiting for request aka loading screen
         const data = await request.get (`https:alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.props.match.params.name}`);
-        console.log(data.body);
+        // console.log(data.body);
         this.setState({ pokemon: data.body.results[0] })
+        // ? if (this.setState ===  
     }
     
     render() {
@@ -20,6 +22,7 @@ export default class DetailsPage extends Component {
         return (
             <div>
    
+            <h2>
 
             <h3>
             name: {this.state.pokemon.pokemon}
@@ -29,6 +32,8 @@ export default class DetailsPage extends Component {
            <p> Hidden Ability: {this.state.pokemon.ability_hidden}
             </p>
             <img src={this.state.pokemon.url_image} alt="whatever" />
+            </h2>
+           
  
         </div>
         )
