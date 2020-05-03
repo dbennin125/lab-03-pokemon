@@ -11,9 +11,11 @@ export default class App extends Component {
   state = {
     searchQuery: '',
     data: [],
+    typeData: [], 
     typeQuery: '',
     // hiddenAbilityQuery: '',
-    page: 1
+    page: 1,
+    pageInfo: { }
   }
   
   handleChange = (event) => {
@@ -34,22 +36,75 @@ export default class App extends Component {
   
   // }
 
-
+  // &sort=${this.state.typeQuery}
   
   handleClick = async () => {
     // console.log('hello', this.state.searchQuery)
-      const fetchedData = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}`)
-      
-   
-      // console.log(fetchedData.body);
-      this.setState({data: fetchedData.body.results });
+      const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}&sort=${this.state.typeQuery}`)
+      const result = response.body.results;
+      const info = response.body;
+
+      // console.log(response.body);
+      this.setState({data: result, pageInfo: info});
   }
 
-  render() {
+// typeClick = async () => {
+
+//       const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?types=${this.state.typeQuery}`)
+//       const result = response.body.types;
+//       const info = response.body;
+//       console.log(result, '||')
+
+//       this.setState({typeData: result, pageInfo: info});
+// }
+
+
+  goToNextPage = async () => {
+    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?page=${this.state.page}&perPage=50`)
     
+    const nextPageNumber = this.state.page + 1;
+    this.setState({ page: nextPageNumber }) 
+    
+    const result = response.body.results;
+    const info = response.body;
+    // console.log(info)
+    this.setState({ data: result, pageInfo: info});
+
+    
+
+  }
+
+  goToLastPage = async () => {
+    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?page=${this.state.page}&perPage=50`)
+    
+    const previousPageNumber = this.state.page - 1;
+    this.setState({ page: previousPageNumber }) 
+    
+    const result = response.body.results;
+    const info = response.body;
+    // console.log(info)
+    this.setState({ data: result, pageInfo: info});
+
+    
+
+  }
+
+
+
+
+  render() {
+    // console.log(this.state.pageInfo.page, '||');
     return (
       <div className="main">
-      <SearchBar MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick}/>
+      
+      <SearchBar  MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick} />
+      
+      {this.state.pageInfo && <button onClick={this.goToNextPage}>Next</button>}
+      {this.state.pageInfo && <button onClick={this.goToLastPage}>Previous</button>}
+      
+      {
+        this.state.typeData.map(pokemon => <CardItem whatever={pokemon} /> )
+      }
 
       {
         this.state.data.map(pokemon => <CardItem whatever={pokemon} />)
