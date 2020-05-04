@@ -5,7 +5,7 @@ export default class SearchBar extends Component {
         return (
             <div>
             <section className="options">
-            <select onChange={this.props.MYNEWHandleChange}>
+            <select onChange={this.props.TYPECHANGE}>
               <option value=""></option>
               <option value="type">Type of Type</option>
               <option value="pokemon">Sort by Name</option>

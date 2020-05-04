@@ -29,13 +29,18 @@ export default class App extends Component {
     this.setState({ typeQuery: value });
   
   }
-  
-  // handleAbility = (event) => {
-  //   const value = event.target.value;
-  //   this.setState({ hiddenAbilityQuery: value });
-  
-  // }
+  async componentDidMount() {
+    const searchParams = new URLSearchParams(window.location.search);
+    this.setState( {searchQuery: searchParams.get('search')});
 
+    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}`)
+    const result = response.body.results;
+    const info = response.body;
+
+    // console.log(response.body);
+    this.setState({data: result, pageInfo: info});
+ 
+  }
   // &sort=${this.state.typeQuery}
   
   handleClick = async () => {
@@ -97,14 +102,16 @@ export default class App extends Component {
     return (
       <div className="main">
       
-      <SearchBar  MYNEWHandleChange={this.handleChange} MYNEWHandleClick={this.handleClick} />
+      <SearchBar  MYNEWHandleChange={this.handleChange}  MYNEWHandleClick={this.handleClick} />
       
       {this.state.pageInfo && <button onClick={this.goToNextPage}>Next</button>}
       {this.state.pageInfo && <button onClick={this.goToLastPage}>Previous</button>}
       
-      {
+      
+
+      {/* {
         this.state.typeData.map(pokemon => <CardItem whatever={pokemon} /> )
-      }
+      } */}
 
       {
         this.state.data.map(pokemon => <CardItem whatever={pokemon} />)
