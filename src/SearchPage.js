@@ -4,6 +4,7 @@ import request from 'superagent';
 import CardItem from './CardItem.js';
 import "./App.css";
 import SearchBar from './SeachBar.js';
+import SortPokemon from './SortPokemon.js'
 
 
 export default class App extends Component {
@@ -28,19 +29,28 @@ export default class App extends Component {
     this.setState({ typeQuery: value });
     
   }
+
   async componentDidMount() {
     const searchParams = new URLSearchParams(window.location.search);
-    this.setState( {searchQuery: searchParams.get('search')});
+    const query = searchParams.get('search');
 
-    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${searchParams.get('search')}`)
+    this.setState( {searchQuery: query});
+    
+    if (query){
+      let page= 1;
+      if (searchParams.get('page')){
+        page = searchParams.get('page');
+      }
+    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${query}&page=${page}`)
     const result = response.body.results;
     const info = response.body;
-
-    // console.log(response.body);
+    
     this.setState({data: result, pageInfo: info});
+    
  
+    }
   }
-  // &sort=${this.state.typeQuery}
+  
   
   handleClick = async () => {
     // console.log('hello', this.state.searchQuery)
@@ -48,19 +58,19 @@ export default class App extends Component {
       const result = response.body.results;
       const info = response.body;
 
-      // console.log(response.body);
+
       this.setState({data: result, pageInfo: info});
   }
 
-// typeClick = async () => {
+  typeClick = async () => { 
 
-//       const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?types=${this.state.typeQuery}`)
-//       const result = response.body.types;
-//       const info = response.body;
-//       console.log(result, '||')
+      const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?sort=${this.state.typeQuery}`)
+      const result = response.body;
+      const info = response;
 
-//       this.setState({typeData: result, pageInfo: info});
-// }
+
+      this.setState({typeData: result, pageInfo: info});
+  }
 
 
   goToNextPage = async () => {
@@ -71,7 +81,7 @@ export default class App extends Component {
     
     const result = response.body.results;
     const info = response.body;
-    // console.log(info)
+   
     this.setState({ data: result, pageInfo: info}); 
 
   }
@@ -84,7 +94,7 @@ export default class App extends Component {
     
     const result = response.body.results;
     const info = response.body;
-    // console.log(info)
+   
     this.setState({ data: result, pageInfo: info}); 
 
   }
@@ -93,20 +103,22 @@ export default class App extends Component {
 
 
   render() {
-    // console.log(this.state.pageInfo.page, '||');
+    console.log(this.state.data, '||');
     return (
       <div className="main">
       
+      <SortPokemon  TYPECHANGE={this.handleType} TYPECLICK={this.typeClick} />
       <SearchBar  MYNEWHandleChange={this.handleChange}  MYNEWHandleClick={this.handleClick} />
+      
       
       {this.state.pageInfo && <button onClick={this.goToNextPage}>Next</button>}
       {this.state.pageInfo && <button onClick={this.goToLastPage}>Previous</button>}
       
       
 
-      {/* {
+      {
         this.state.typeData.map(pokemon => <CardItem whatever={pokemon} /> )
-      } */}
+      }
 
       {
         this.state.data.map(pokemon => <CardItem whatever={pokemon} />)
