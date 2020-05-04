@@ -13,7 +13,6 @@ export default class App extends Component {
     data: [],
     typeData: [], 
     typeQuery: '',
-    // hiddenAbilityQuery: '',
     page: 1,
     pageInfo: { }
   }
@@ -27,13 +26,13 @@ export default class App extends Component {
   handleType = (event) => {
     const value = event.target.value;
     this.setState({ typeQuery: value });
-  
+    
   }
   async componentDidMount() {
     const searchParams = new URLSearchParams(window.location.search);
     this.setState( {searchQuery: searchParams.get('search')});
 
-    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}`)
+    const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${searchParams.get('search')}`)
     const result = response.body.results;
     const info = response.body;
 
@@ -73,9 +72,7 @@ export default class App extends Component {
     const result = response.body.results;
     const info = response.body;
     // console.log(info)
-    this.setState({ data: result, pageInfo: info});
-
-    
+    this.setState({ data: result, pageInfo: info}); 
 
   }
 
@@ -88,9 +85,7 @@ export default class App extends Component {
     const result = response.body.results;
     const info = response.body;
     // console.log(info)
-    this.setState({ data: result, pageInfo: info});
-
-    
+    this.setState({ data: result, pageInfo: info}); 
 
   }
 
