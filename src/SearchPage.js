@@ -55,6 +55,7 @@ export default class App extends Component {
   handleClick = async () => {
     // console.log('hello', this.state.searchQuery)
       const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?pokemon=${this.state.searchQuery}&sort=${this.state.typeQuery}`)
+      
       const result = response.body.results;
       const info = response.body;
 
@@ -62,15 +63,15 @@ export default class App extends Component {
       this.setState({data: result, pageInfo: info});
   }
 
-  typeClick = async () => { 
+  // typeClick = async () => { 
 
-      const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?sort=${this.state.typeQuery}`)
-      const result = response.body;
-      const info = response;
+  //     const response = await request.get(`https://alchemy-pokedex.herokuapp.com/api/pokedex?sort=${this.state.typeQuery}`)
+  //     const result = response.body.results.type;
+  //     const info = response.body;
 
 
-      this.setState({typeData: result, pageInfo: info});
-  }
+  //     this.setState({typeData: result, pageInfo: info});
+  // }
 
 
   goToNextPage = async () => {
@@ -107,7 +108,7 @@ export default class App extends Component {
     return (
       <div className="main">
       
-      <SortPokemon  TYPECHANGE={this.handleType} TYPECLICK={this.typeClick} />
+      <SortPokemon  TYPECHANGE={this.handleType} TYPECLICK={this.handleClick} />
       <SearchBar  MYNEWHandleChange={this.handleChange}  MYNEWHandleClick={this.handleClick} />
       
       
@@ -116,9 +117,9 @@ export default class App extends Component {
       
       
 
-      {
+      {/* {
         this.state.typeData.map(pokemon => <CardItem whatever={pokemon} /> )
-      }
+      } */}
 
       {
         this.state.data.map(pokemon => <CardItem whatever={pokemon} />)
