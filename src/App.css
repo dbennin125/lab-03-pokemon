@@ -34,3 +34,7 @@ h3 {
   border-color: steelblue 10px;
   border: solid thick;
 }
+.footer {
+  text-align: center;
+  background-color: steelblue;
+}
